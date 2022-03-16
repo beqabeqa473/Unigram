@@ -251,8 +251,8 @@ namespace Unigram.Views
             {
                 this.BeginOnUIThread(() =>
                 {
-                    Photo.SetUser(_protoService, update.User, 32);
-                    PhotoSide?.SetUser(_protoService, update.User, 32);
+                    Photo.SetUser(_protoService, update.User, 28);
+                    PhotoSide?.SetUser(_protoService, update.User, 28);
                 });
             }
         }
@@ -651,7 +651,7 @@ namespace Unigram.Views
             {
                 if (_protoService.TryGetUser(_protoService.Options.MyId, out User user))
                 {
-                    PhotoSide.SetUser(_protoService, user, 32);
+                    PhotoSide.SetUser(_protoService, user, 28);
                 }
             }
 
@@ -772,8 +772,8 @@ namespace Unigram.Views
         {
             if (_protoService.TryGetUser(_protoService.Options.MyId, out User user))
             {
-                Photo.SetUser(_protoService, user, 32);
-                PhotoSide?.SetUser(_protoService, user, 32);
+                Photo.SetUser(_protoService, user, 28);
+                PhotoSide?.SetUser(_protoService, user, 28);
             }
 
             ViewModel.Aggregator.Subscribe(this);
@@ -2409,19 +2409,7 @@ namespace Unigram.Views
 
         public async void NavigationView_ItemClick(RootDestination destination)
         {
-            if (destination == RootDestination.NewChat)
-            {
-                MasterDetail.NavigationService.Navigate(typeof(BasicGroupCreateStep1Page));
-            }
-            else if (destination == RootDestination.NewSecretChat)
-            {
-                ViewModel.CreateSecretChatCommand.Execute();
-            }
-            else if (destination == RootDestination.NewChannel)
-            {
-                MasterDetail.NavigationService.Navigate(typeof(ChannelCreateStep1Page));
-            }
-            else if (destination == RootDestination.Chats)
+            if (destination == RootDestination.Chats)
             {
                 rpMasterTitlebar.SelectedIndex = 0;
                 MasterDetail.Push(true);
@@ -3117,6 +3105,16 @@ namespace Unigram.Views
                     ? Visibility.Collapsed
                     : Visibility.Visible
             };
+        }
+
+        private void NewGroup_Click(object sender, RoutedEventArgs e)
+        {
+            MasterDetail.NavigationService.Navigate(typeof(BasicGroupCreateStep1Page));
+        }
+
+        private void NewChannel_Click(object sender, RoutedEventArgs e)
+        {
+            MasterDetail.NavigationService.Navigate(typeof(ChannelCreateStep1Page));
         }
     }
 
